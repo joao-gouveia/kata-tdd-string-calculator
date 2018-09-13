@@ -5,5 +5,87 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
-       
+  @Test
+  public void calculate_emptystring_returns0()
+  {
+      // arrange
+      String numbers = "";
+      Calculator calculator = new Calculator();
+
+      // act
+      int result = calculator.add(numbers);
+
+      // assert
+      assertSame(result, 0);
+  }
+
+  @Test
+  public void calculate_one_returns1()
+  {
+      // arrange
+      String numbers = "1";
+      Calculator calculator = new Calculator();
+
+      // act
+      int result = calculator.add(numbers);
+
+      // assert
+      assertSame(result, 1);
+  }
+  
+  @Test
+  public void calculate_one_comma_one_returns2()
+  {
+      // arrange
+      String numbers = "1,1";
+      Calculator calculator = new Calculator();
+
+      // act
+      int result = calculator.add(numbers);
+
+      // assert
+      assertSame(result, 2);
+  }
+
+  @Test
+  public void calculate_newline_between_numbers123_returns6() 
+  {
+    // arrange
+    String numbers = "1\n2,3";
+    Calculator calculator = new Calculator();
+
+    // act
+    int result = calculator.add(numbers);
+
+    // assert
+    assertSame(result, 6);
+  }
+
+  @Test
+  public void calculate_newline_between_numbers1_returns1() 
+  {
+    // arrange
+    String numbers = "1,\n";
+    Calculator calculator = new Calculator();
+
+    // act
+    int result = calculator.add(numbers);
+
+    // assert
+    assertSame(result, 1);
+  }
+
+  @Test
+  public void calculate_custom_delimiter_returns3() 
+  {
+    // arrange
+    String numbers = "//;\n1;2";
+    Calculator calculator = new Calculator();
+
+    // act
+    int result = calculator.add(numbers);
+
+    // assert
+    assertSame(result, 3);
+  }
 }
