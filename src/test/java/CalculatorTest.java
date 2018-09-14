@@ -5,5 +5,103 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
-       
+
+    @Test public void calculator_givenEmpty_return0() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,0);
+    }
+
+    @Test public void calculator_given1_returnSelf() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,1);
+    }
+
+    @Test public void calculator_given2_returnSum() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1,2";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,3);
+    }
+    
+    @Test public void calculator_givenN_returnSum() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1,2,3,4,1,2";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,13);
+    }
+
+    @Test public void calculator_givenNL_returnSum() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1,2\n3\n4\n1\n2";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,13);
+    }
+
+    @Test public void calculator_givenDDL_returnSum() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1,2\n,3\n4\n1\n2";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,3);
+    }
+
+
+    @Test public void calculator_givenDD_returnSum() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "//;\n1;2";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,3);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void calculator_givenNegNum_returnException() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1,-1,-4";
+        //act
+        try{
+            int result = calculator.Add(str);
+        }
+        catch(IllegalArgumentException e){
+            String message = "negatives not allowed: -1,-4";
+            assertEquals(message, e.getMessage());
+            throw e;        }
+        //fail
+        fail("Failed - NegNum Test!");
+    }
+
+    public void calculator_givenBig_ignore() {
+        //arrange
+        Calculator calculator = new Calculator();
+        String str = "1,100000";
+        //act
+        int result = calculator.Add(str);
+        //assert
+        assertSame(result,1);
+    }
 }
+
